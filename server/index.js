@@ -1,9 +1,12 @@
 //ESModules
 import express from "express";
+import cors from "cors";
 
 //console.log("importación de express exitosa")
 //2. INICIALIZADORES
-const app = express()
+const app = express();
+
+app.use(cors());
 
 const data =[{
     id: 0,
