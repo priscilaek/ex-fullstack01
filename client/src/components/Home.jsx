@@ -6,7 +6,7 @@ const Home =()=>{
         <div className="flex flex-col items-center justify-center min-h-screen py-2 text-center sm:px-4">
             <h2 className="text-2xl font-bold mb-2">Bienvenid@ a mi Restaurante: "Los Agradecidos"</h2>
             <p className="text-lg">Disfruta la mejor comida</p>
-            <img src ="src/img/menudia.png" alt="Menu" className="mt-4"/>
+            <img src ="/img/menudia.png" alt="Menu" className="mt-4"/>
             <p className="text-lg font-bold">Reserva con esta Descripción:</p>
             <p className="text-lg">Opcion 1: Spagueti a la Bolognesa </p>
             <p className="text-lg">Opcion 2: Seco de Cordero </p>
