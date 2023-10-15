@@ -11,14 +11,18 @@ app.use(express.json());
 let data = [
   {
     id: 0,
-    title: "reservación 1",
-    description: "Quiero una reservación a Cancún, México",
+    cliente: "Abel Zabala",
+    telefono: "99999997",
+    description: "Opción 2, sin frejoles.",
+    date: "2023-10-21T12:36"
   },
   {
     id: 1,
-    title: "reservación 2",
-    description: "Quiero una reservación a Veracruz, México",
-  },
+    cliente: "Damaris Guerra",
+    telefono: "99999992",
+    description: "Opción 1, con bastante queso.",
+    date: "2023-10-23T13:00"
+  }
 ];
 
 // 3. RUTAS
@@ -27,7 +31,7 @@ let data = [
 app.get("/", (req, res) => {
   res.json({
     msg: "Este es un mensaje",
-    data: data,
+    data: data
   });
 });
 
@@ -35,11 +39,13 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   console.log("req", req.body);
 
-  const { title, description } = req.body;
+  const { cliente, telefono, description, date } = req.body;
 
   data.push({
-    title,
+    cliente,
+    telefono,
     description,
+    date
   });
 
   res.json({

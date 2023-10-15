@@ -1,101 +1,48 @@
-import { useState, useEffect } from "react";
-import "./App.css";
+import React from 'react'
+import Home from './components/Home'
+import Reservations from './components/Reservations'
+import Comentarios from './components/Comentarios'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { nanoid } from 'nanoid'
+import { FaInstagram, FaFacebook } from 'react-icons/fa';
 
-function App() {
-  const [reservations, setReservations] = useState([]);
-  const [newReservation, setNewReservation] = useState({
-    title: "",
-    description: "",
-  });
+const navItems = [
+  { id: nanoid(), name: 'Home', path: '/' },
+  { id: nanoid(), name: 'Reservas', path: '/reservations' },
+  { id: nanoid(), name: 'Comentarios', path: '/comentarios' },
+]
 
-  const serverUrl = import.meta.env.VITE_SERVER_URL;
+function App() { 
+  return (    
+    <BrowserRouter>
+      <header className="bg-yellow-500 text-white p-4 text-right">
+        <h2 className="text-xl text-left italic">App Restaurante "Los Agradecidos"</h2>
+        <h1 className="text-xl text-left italic">Autor: Priscila Elías</h1>
+        <nav className="mt-2">
+          {navItems.map(item => (
+            <Link key={item.id} to={item.path} className="mr-4 text-red-500">{item.name}</Link>
+          ))}
+        </nav>
+      </header>
 
-  // HOOK
-  // Manejar efectos laterales (procesos asíncronso)
-  useEffect(() => {
-    const fetchReservations = async () => {
-      const response = await fetch(serverUrl);
-      const allReservations = await response.json();
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/reservations" element={<Reservations />} />
+        <Route path="/comentarios" element={<Comentarios />} />
+      </Routes>
 
-      setReservations(allReservations.data);
-
-      return;
-    };
-
-    fetchReservations();
-  }, []);
-
-  const handleSubmit = (e, data) => {
-    e.preventDefault();
-
-    console.log("data", data);
-
-    const sendData = async () => {
-      const response = await fetch(serverUrl, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-
-      const successData = await response.json();
-      console.log("successData", successData);
-
-      setReservations(successData.data);
-    };
-
-    sendData();
-  };
-
-  const handleChange = (e) => {
-    setNewReservation({
-      ...newReservation,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  return (
-    <>
-      <div>
-        <form
-          style={{ display: "flex" }}
-          onSubmit={(e) => handleSubmit(e, newReservation)}
-        >
-          <div>
-            <label>Título Reservación</label>
-            <input
-              name="title"
-              onChange={(e) => handleChange(e)}
-              value={newReservation.title}
-            />
-          </div>
-          <div>
-            <label>Descripción Reservación</label>
-            <textarea
-              name="description"
-              onChange={(e) => handleChange(e)}
-              value={newReservation.description}
-            />
-          </div>
-
-          <button>Crear reservación</button>
-        </form>
+      <footer className="bg-yellow-500 text-white p-4 mt-4">
+      <p>© 2023 Restaurante Los Agradecidos. Todos los derechos reservados.</p>
+      <div className="flex mt-4">
+        <Link to="https://www.instagram.com/">
+          <FaInstagram className="text-white mr-4" size={24} />
+        </Link>
+        <Link to="https://www.facebook.com/">
+          <FaFacebook className="text-white" size={24} />
+        </Link>
       </div>
-
-      {reservations.length === 0 ? (
-        <p>No hay reservaciones...</p>
-      ) : (
-        reservations.map((e) => {
-          return (
-            <div key={e.id}>
-              <h1>{e.title}</h1>
-              <p>Descripción: {e.description}</p>
-            </div>
-          );
-        })
-      )}
-    </>
+    </footer>
+    </BrowserRouter>
   );
 }
 
