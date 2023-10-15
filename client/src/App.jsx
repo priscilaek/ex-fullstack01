@@ -4,7 +4,7 @@ import Reservations from './components/Reservations'
 import Comentarios from './components/Comentarios'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { nanoid } from 'nanoid'
-import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaInstagram, FaFacebook } from 'react-icons/fa'
 
 const navItems = [
   { id: nanoid(), name: 'Home', path: '/' },
